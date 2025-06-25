@@ -4,6 +4,7 @@ version = "1.0"
 description = ""
 authors = ["Mihail Silvan Pop <607433mp@eur.nl>"]
 readme = "README.md"
+package-mode = false
 
 # learn more about poertry here
 # https://realpython.com/dependency-management-python-poetry/
