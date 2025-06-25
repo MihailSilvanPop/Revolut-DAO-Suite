@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "Revolut DAO Suite"
+version = "1.0"
+description = ""
+authors = ["Mihail Silvan Pop <607433mp@eur.nl>"]
+readme = "README.md"
+
+# learn more about poertry here
+# https://realpython.com/dependency-management-python-poetry/
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.3"
+pyxll = "^5.10.2"
+openpyxl = "^3.1.5"
+numpy = "^2.3.1"
+
+[tool.poetry.group.tests]
+optional = true
+
+[tool.poetry.group.tests.dependencies]
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
