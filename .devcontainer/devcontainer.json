@@ -30,8 +30,8 @@
 
                 "python.analysis.autoImportCompletions": true,
                 "python.analysis.typeCheckingMode": "basic",
-                "python.testing.unittestEnabled": false,
-                "python.testing.pytestEnabled": true,
+                "python.testing.unittestEnabled": true,
+                "python.testing.pytestEnabled": false,
                 // "python.testing.cwd": ".",
                 "python.poetryPath": "~/.local/bin/poetry",
                 "python.testing.pytestPath": "${workspaceFolder}/.venv/bin/pytest",
@@ -57,9 +57,6 @@
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
 
-    // Connect as root to avoid user errors.
-    "remoteUser": "root",
-    // "containerUser": "root", // You can remove or comment this out
-
-    "postCreateCommand": "bash ./.devcontainer/post-install.sh"
+    "postCreateCommand": "bash ./.devcontainer/post-install.sh",
+	"workspaceFolder": "/workspaces/Revolut-DAO-Suite"
 }
