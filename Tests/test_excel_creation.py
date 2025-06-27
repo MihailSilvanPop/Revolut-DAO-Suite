@@ -2,13 +2,22 @@ import unittest
 import Frontend.Input.excel_creation as excel
 
 class TestExcelDAOCreation(unittest.TestCase):
+    """
+    Unit tests for Excel-based DAO creation functions.
+    """
+
     def setUp(self):
-        # Clear state before each test
+        """
+        Clear the state before each test and initialize a test session ID.
+        """
         excel.dao_creation_steps.clear()
         excel.daos.clear()
         self.session_id = "testsession"
 
     def test_excel_set_dao_name(self):
+        """
+        Test setting the DAO name for a session.
+        """
         result = excel.excel_set_dao_name(self.session_id, "TestDAO")
         self.assertIn("DAO name set to 'TestDAO'", result)
         self.assertIn(self.session_id, excel.dao_creation_steps)
@@ -17,6 +26,9 @@ class TestExcelDAOCreation(unittest.TestCase):
         print(f"Session: {self.session_id}, DAO name: {excel.dao_creation_steps[self.session_id]['name']}")
 
     def test_excel_set_num_founders(self):
+        """
+        Test setting the number of founders for a DAO.
+        """
         excel.excel_set_dao_name(self.session_id, "TestDAO")
         result = excel.excel_set_num_founders(self.session_id, 2)
         self.assertIn("Number of founders set to 2", result)
@@ -26,6 +38,9 @@ class TestExcelDAOCreation(unittest.TestCase):
         print(f"Session: {self.session_id}, Num founders: {excel.dao_creation_steps[self.session_id]['num_founders']}")
 
     def test_excel_add_founder(self):
+        """
+        Test adding founders to the DAO.
+        """
         excel.excel_set_dao_name(self.session_id, "TestDAO")
         excel.excel_set_num_founders(self.session_id, 2)
         result1 = excel.excel_add_founder(self.session_id, "Mihail")
@@ -37,6 +52,9 @@ class TestExcelDAOCreation(unittest.TestCase):
         print(f"Session: {self.session_id}, Founders: {excel.dao_creation_steps[self.session_id]['founders']}")
 
     def test_excel_set_token_and_supply(self):
+        """
+        Test setting the token name and initial supply for the DAO.
+        """
         excel.excel_set_dao_name(self.session_id, "TestDAO")
         excel.excel_set_num_founders(self.session_id, 1)
         excel.excel_add_founder(self.session_id, "Mihail")
@@ -48,6 +66,9 @@ class TestExcelDAOCreation(unittest.TestCase):
         print(f"Session: {self.session_id}, Token: {excel.dao_creation_steps[self.session_id]['token_name']}, Initial supply: {excel.dao_creation_steps[self.session_id]['initial_supply']}")
 
     def test_excel_finalize_dao(self):
+        """
+        Test finalizing the DAO creation process.
+        """
         excel.excel_set_dao_name(self.session_id, "TestDAO")
         excel.excel_set_num_founders(self.session_id, 1)
         excel.excel_add_founder(self.session_id, "Mihail")

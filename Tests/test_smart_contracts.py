@@ -3,7 +3,14 @@ from Backend.Features.smart_contracts import process_user_input_and_add_contract
 import unittest
 
 class TestSmartContracts(unittest.TestCase):
+    """
+    Unit tests for smart contract generation and blockchain integration.
+    """
+
     def test_quorum_smart_contract(self):
+        """
+        Test generating a smart contract for quorum rules.
+        """
         bc = Blockchain()
         result = process_user_input_and_add_contract("Set quorum to 50% +1", bc)
         print(result)
@@ -12,6 +19,9 @@ class TestSmartContracts(unittest.TestCase):
         self.assertEqual(bc.chain[1].transactions[0]["type"], "smart_contract")
 
     def test_voting_time_smart_contract(self):
+        """
+        Test generating a smart contract for voting time rules.
+        """
         bc = Blockchain()
         result = process_user_input_and_add_contract("Set voting time to 48 hours", bc)
         print(result)
@@ -20,6 +30,9 @@ class TestSmartContracts(unittest.TestCase):
         self.assertEqual(bc.chain[1].transactions[0]["type"], "smart_contract")
 
     def test_proposal_cost_smart_contract(self):
+        """
+        Test generating a smart contract for proposal cost rules.
+        """
         bc = Blockchain()
         result = process_user_input_and_add_contract("Set proposal cost to 10", bc)
         print(result)
@@ -28,6 +41,9 @@ class TestSmartContracts(unittest.TestCase):
         self.assertEqual(bc.chain[1].transactions[0]["type"], "smart_contract")
 
     def test_unrecognized_input(self):
+        """
+        Test handling unrecognized governance rule input.
+        """
         bc = Blockchain()
         result = process_user_input_and_add_contract("This is not a governance rule", bc)
         print(result)

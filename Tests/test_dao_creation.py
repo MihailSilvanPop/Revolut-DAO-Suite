@@ -3,11 +3,21 @@ from Backend.Features.dao_creation import DAOCreation
 import Frontend.Input.excel_creation as excel
 
 class TestDAOCreationCore(unittest.TestCase):
+    """
+    Unit tests for the core functionality of the DAOCreation class.
+    """
+
     def setUp(self):
+        """
+        Set up a DAO instance for testing.
+        """
         self.founders = ["Mihail", "Ben", "Moritz"]
         self.dao = DAOCreation("TestDAO", self.founders, token_name="REVO", initial_supply=900)
 
     def test_initialization(self):
+        """
+        Test the initialization of a DAO instance.
+        """
         self.assertEqual(self.dao.name, "TestDAO")
         self.assertEqual(self.dao.token_name, "REVO")
         self.assertEqual(self.dao.initial_supply, 900)
@@ -17,6 +27,9 @@ class TestDAOCreationCore(unittest.TestCase):
         print(f"DAO name: {self.dao.name}, Founders: {self.dao.founders}, Token: {self.dao.token_name}, Initial supply: {self.dao.initial_supply}")
 
     def test_set_governance_rule(self):
+        """
+        Test setting a governance rule for the DAO.
+        """
         result = self.dao.set_governance_rule("quorum", 2)
         self.assertEqual(result, "Rule 'quorum' set to 2")
         self.assertEqual(self.dao.governance_rules["quorum"], 2)
@@ -24,6 +37,9 @@ class TestDAOCreationCore(unittest.TestCase):
         print(f"Governance rules: {self.dao.governance_rules}")
 
     def test_add_member(self):
+        """
+        Test adding a new member to the DAO.
+        """
         result = self.dao.add_member("Frank")
         self.assertIn("Frank", self.dao.members)
         self.assertEqual(self.dao.wallets["Frank"], 0)
@@ -32,6 +48,9 @@ class TestDAOCreationCore(unittest.TestCase):
         print(f"Members: {self.dao.members}, Wallets: {self.dao.wallets}")
 
     def test_create_proposal(self):
+        """
+        Test creating a proposal in the DAO.
+        """
         proposal_id = self.dao.create_proposal("Increase Supply", "Proposal to increase REVO supply", "Mihail")
         self.assertEqual(len(self.dao.proposals), 1)
         proposal = self.dao.proposals[0]
@@ -42,6 +61,9 @@ class TestDAOCreationCore(unittest.TestCase):
         print(f"Proposal: {proposal}")
 
     def test_vote_on_proposal(self):
+        """
+        Test casting a vote on a proposal.
+        """
         proposal_id = self.dao.create_proposal("Increase Supply", "Proposal to increase REVO supply", "Mihail")
         result = self.dao.vote_on_proposal(proposal_id, "Ben", "yes")
         self.assertEqual(result, f"Ben voted 'yes' on proposal '{proposal_id}'")
@@ -50,12 +72,18 @@ class TestDAOCreationCore(unittest.TestCase):
         print(f"Votes: {self.dao.proposals[0]['votes']}")
 
     def test_vote_on_proposal_not_found(self):
+        """
+        Test voting on a non-existent proposal.
+        """
         result = self.dao.vote_on_proposal("nonexistent_id", "Ben", "yes")
         self.assertEqual(result, "Proposal not found.")
         print("The test_vote_on_proposal_not_found has passed successfully!")
         print(f"Result: {result}")
 
     def test_get_summary(self):
+        """
+        Test retrieving the summary of the DAO.
+        """
         summary = self.dao.get_summary()
         self.assertEqual(summary["name"], "TestDAO")
         self.assertEqual(summary["token_name"], "REVO")

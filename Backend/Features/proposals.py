@@ -7,7 +7,20 @@ import re
 from Backend.Features.dao_creation import generate_smart_contract_from_summary, compile_solidity_to_bytecode
 
 class Proposal:
+    """
+    Represents a proposal in the DAO.
+    """
+
     def __init__(self, title, description, proposer, dao):
+        """
+        Initializes a proposal with the given parameters.
+
+        Args:
+            title (str): The title of the proposal.
+            description (str): The description of the proposal.
+            proposer (str): The proposer of the proposal.
+            dao (DAOCreation): The DAO associated with the proposal.
+        """
         self.title = title
         self.description = description
         self.proposer = proposer
@@ -17,6 +30,12 @@ class Proposal:
         self.status = "draft"  # draft, active, passed, failed
 
     def to_string(self):
+        """
+        Converts the proposal details to a string.
+
+        Returns:
+            str: The proposal details as a string.
+        """
         return f"Proposal: {self.title}\nDescription: {self.description}\nProposer: {self.proposer}"
 
 def draft_proposal_step_by_step(dao, input_func=input):
@@ -51,16 +70,43 @@ def validate_proposal(proposal, dao):
     return True, {"cost": cost, "voting_time": voting_time, "quorum": quorum}
 
 def start_voting(proposal):
+    """
+    Starts the voting process for a proposal.
+
+    Args:
+        proposal (Proposal): The proposal to start voting on.
+    """
     proposal.status = "active"
     proposal.votes = {}
 
 def cast_vote(proposal, member, vote):
+    """
+    Casts a vote on a proposal.
+
+    Args:
+        proposal (Proposal): The proposal to vote on.
+        member (str): The member casting the vote.
+        vote (str): The vote ("yes" or "no").
+
+    Returns:
+        str: Confirmation message or error message.
+    """
     if proposal.status != "active":
         return "Voting not active."
     proposal.votes[member] = vote
     return f"{member} voted {vote}"
 
 def check_voting_result(proposal, dao):
+    """
+    Checks the result of a proposal's voting process.
+
+    Args:
+        proposal (Proposal): The proposal to check.
+        dao (DAOCreation): The DAO associated with the proposal.
+
+    Returns:
+        str: The result of the voting process.
+    """
     # Check voting time
     voting_time = dao.governance_rules.get("voting_time_hours", 48) * 3600
     if int(time.time()) - proposal.created_at > voting_time:
@@ -69,7 +115,7 @@ def check_voting_result(proposal, dao):
     # Check quorum
     quorum = dao.governance_rules.get("quorum", (len(dao.members) // 2) + 1)
     if len(proposal.votes) < quorum:
-        proposal.status = "draft"  
+        proposal.status = "draft"
         return "Quorum not met."
     yes_votes = sum(1 for v in proposal.votes.values() if v == "yes")
     min_votes_to_pass = dao.governance_rules.get("min_votes_to_pass", quorum)
