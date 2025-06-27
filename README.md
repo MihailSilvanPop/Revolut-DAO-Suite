@@ -66,10 +66,13 @@ The backend is organized into two main modules:
    - [`Backend/Features/smart_contracts.py`](Backend/Features/smart_contracts.py ): Generates Solidity-like smart contracts based on governance rules.
 
 ### Frontend
-The frontend integrates with Excel using the PyXLL library. It provides functions for DAO creation, transaction execution, and proposal management:
+The frontend integrates with Excel using the PyXLL library. It provides functions for DAO creation, transaction execution, proposal management, and smart contract interaction:
+
 - [`Frontend/Input/excel_creation.py`](Frontend/Input/excel_creation.py ): Facilitates DAO creation step-by-step.
 - [`Frontend/Input/excel_transactions.py`](Frontend/Input/excel_transactions.py ): Handles DAO transactions via Excel functions.
 - [`Frontend/Input/excel_proposals.py`](Frontend/Input/excel_proposals.py ): Manages proposals and voting through Excel.
+- [`Frontend/Input/excel_smart_contracts.py`](Frontend/Input/excel_smart_contracts.py ): Exposes smart contract creation and retrieval to Excel.
+- [`Frontend/Input/excel_macros.py`](Frontend/Input/excel_macros.py ): Provides Excel macros for automating workflows in Excel.
 
 ### Unit Tests
 The [`Tests`](Tests ) folder contains comprehensive unit tests for all major components:
@@ -147,6 +150,8 @@ The project includes a [`Dockerfile`](Dockerfile ) for containerized development
 - [`excel_cast_vote(dao_id, title, member, vote)`](Frontend/Input/excel_proposals.py ): Casts a vote on a proposal.
 - [`excel_check_proposal_result(dao_id, title)`](Frontend/Input/excel_proposals.py ): Checks the result of a proposal.
 - [`excel_get_blockchain_info()`](Frontend/Input/excel_creation.py ): Retrieves and displays blockchain information.
+- [`excel_add_smart_contract(session_id, contract_string)`](Frontend/Input/excel_smart_contracts.py ): Adds a smart contract to the blockchain.
+- [`excel_get_smart_contracts(session_id)`](Frontend/Input/excel_smart_contracts.py ): Retrieves a summary of all smart contracts added.
 
 ---
 
