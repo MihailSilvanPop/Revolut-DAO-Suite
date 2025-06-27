@@ -103,4 +103,4 @@ def excel_finalize_dao(session_id):
     daos[dao.dao_id] = dao
     # Optionally clear the session
     del dao_creation_steps[session_id]
-    return f"DAO created with ID: {dao.dao_id}"
+    return f"{dao.dao_id}"
