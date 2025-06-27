@@ -65,12 +65,21 @@ def generate_solidity_voting_time(value, unit):
         str: The generated Solidity code.
     """
     seconds = value * {"minutes": 60, "hours": 3600, "days": 86400}[unit]
-    return f"""
-    uint public votingTime = {seconds};
-    function getVotingDeadline(uint proposalCreatedAt) public view returns (uint) {{
-        return proposalCreatedAt + votingTime;
-    }}
-    """
+    return (
+        "pragma solidity ^0.8.0;\n\n"
+        "contract VotingTimeDeadline {\n\n"
+        "    uint256 public constant VotingTime = "
+        f"{seconds};\n\n"
+        "    struct VotingDeadline {\n"
+        "        uint256 endTime;\n"
+        "        bool exists;\n"
+        "    }\n\n"
+        "    mapping(uint256 => VotingDeadline) public governance;\n\n"
+        "    function getVotingDeadline(uint256 proposalCreatedAt) public pure returns (uint256) {\n"
+        "        return proposalCreatedAt + VotingTime;\n"
+        "    }\n\n"
+        "}\n"
+    )
 
 def generate_solidity_proposal_cost(cost):
     """

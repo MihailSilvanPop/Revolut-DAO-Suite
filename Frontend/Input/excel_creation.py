@@ -54,7 +54,7 @@ def excel_add_founder(session_id, founder_username):
     founders = dao_creation_steps[session_id]["founders"]
     founders.append(founder_username)
     if len(founders) < dao_creation_steps[session_id]["num_founders"]:
-        return f"Founder '{founder_username}' added. Add the next founder."
+        return f"{founder_username} added. Add the next one."
     else:
         return f"All founders added. Now set token name and initial supply."
 

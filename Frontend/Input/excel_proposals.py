@@ -26,7 +26,7 @@ def excel_create_proposal(dao_id, title, description, proposer):
     key = f"{dao_id}:{title}"
     excel_proposals[key] = proposal
     start_voting(proposal)  # Activate voting
-    return f"Proposal '{title}' created for DAO {dao_id}."
+    return f"Proposal '{title}' created."
 
 @xl_func("string dao_id, string title, string member, string vote: string")
 def excel_cast_vote(dao_id, title, member, vote):
